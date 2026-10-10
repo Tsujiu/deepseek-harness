@@ -93,9 +93,9 @@ describe('document language', () => {
 
   it('uses an external locale definition for the document language', async () => {
     const { locale } = await bench()
-    locale.addLanguage({ id: 'pt-BR', label: 'Português', fallback: 'en' })
-    locale.setLocale('pt-BR')
-    expect(langOf()).toBe('pt-BR')
+    locale.addLanguage({ id: 'ja', label: '日本語', fallback: 'en' })
+    locale.setLocale('ja')
+    expect(langOf()).toBe('ja')
   })
 
   it('does not rewrite the document language for catalog changes with the same active locale', async () => {

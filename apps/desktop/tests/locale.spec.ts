@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { en, formatDesktopMessage, resolveDesktopLocale, resolveDesktopStartupLocale, zh } from '../src/locale.ts'
+import { en, formatDesktopMessage, ptBR, resolveDesktopLocale, resolveDesktopStartupLocale, zh } from '../src/locale.ts'
 
 describe('desktop locale dictionaries', () => {
   it('ships the same key set in English and Chinese', () => {
     expect(Object.keys(zh)).toEqual(Object.keys(en))
     expect(resolveDesktopLocale('zh-Hans-CN').messages).toEqual(zh)
     expect(resolveDesktopLocale('en-US').messages).toEqual(en)
+    expect(resolveDesktopLocale('pt-BR').messages).toEqual(ptBR)
     expect(resolveDesktopLocale('fr-FR').messages).toEqual(en)
   })
 
@@ -22,6 +23,8 @@ describe('desktop locale dictionaries', () => {
     expect(resolveDesktopStartupLocale(null, ['ja-JP']).id).toBe('en')
     expect(resolveDesktopStartupLocale(null, []).id).toBe('en')
     expect(resolveDesktopStartupLocale('ja', ['zh-CN']).id).toBe('zh-CN')
+    expect(resolveDesktopStartupLocale('pt-BR', ['en-US']).id).toBe('pt-BR')
+    expect(resolveDesktopStartupLocale(null, ['pt-PT', 'en-US']).id).toBe('pt-BR')
   })
 
 })

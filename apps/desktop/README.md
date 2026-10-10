@@ -186,6 +186,18 @@ The welcome window follows system appearance with the design’s Platform light/
 
 ## Package
 
+### Linux
+
+Linux x64 is supported through Electron Builder. The package produces an AppImage and a Debian package, while the directory command produces an unpacked `linux-unpacked` application for local smoke testing. The Debian package installs the `deepseek-harness` executable and a desktop entry under the DeepSeek Harness product name.
+
+```sh
+pnpm run dev:desktop
+pnpm run package:desktop:linux:x64:unsigned
+pnpm run package:desktop:linux:x64:dir
+```
+
+The unsigned commands are intended for local development. The `.deb` artifact is written under `apps/desktop/.desktop-build/targets/linux-x64/unsigned-artifacts` and can be installed with `sudo apt install ./deepseek-harness-<version>-x64.deb`. Linux packaging must run on a Linux x64 host and does not require a signing certificate.
+
 <a id="release-versions"></a>
 
 ### Release versions

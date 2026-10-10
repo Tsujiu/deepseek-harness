@@ -155,7 +155,7 @@ describe('locale apply', () => {
     const { entry, instance, face } = faceOf(b.slots)
     // The inject-time re-sync sealed the init window: the mirror is current.
     expect(instance.getSnapshot().active).toBe('en')
-    expect(instance.getSnapshot().options.map(o => o.id)).toEqual(['zh', 'en'])
+    expect(instance.getSnapshot().options.map(o => o.id)).toEqual(['zh', 'en', 'pt-BR'])
     // Copy rides the standard locale seat: the entry declares the namespace.
     expect(entry.locale).toBe(SETTINGS_NS)
     expect(locale.bind(SETTINGS_NS)('language.title')).toBe('Language')
@@ -184,11 +184,12 @@ describe('locale apply', () => {
     expect(instance.getSnapshot().options).toEqual([
       { id: 'zh', label: '中文' },
       { id: 'en', label: 'English' },
+      { id: 'pt-BR', label: 'Português (Brasil)' },
       { id: 'ja', label: '日本語' },
     ])
 
     await languagePack.dispose()
-    expect(instance.getSnapshot().options.map(option => option.id)).toEqual(['zh', 'en'])
+    expect(instance.getSnapshot().options.map(option => option.id)).toEqual(['zh', 'en', 'pt-BR'])
   })
 
   it('loads and refreshes the explicit Host preference after nonblocking activation', async () => {
@@ -246,5 +247,22 @@ describe('locale apply', () => {
     await f2.await()
     await f2.dispose()
     expect(quiet.slots.entries(SLOT)).toHaveLength(0)
+  })
+
+  it('registers the shipped Portuguese pack across feature namespaces', async () => {
+    const b = await bench()
+    declareItems(b.slots)
+    await b.ctx.plugin({ inject: [...inject], apply }).await()
+    const locale = b.ctx.get('locale') as LocaleRuntime
+    expect(locale.getSnapshot().locales.map(l => l.id)).toContain('pt-BR')
+    locale.setLocale('pt-BR')
+    // Feature copy resolves in Portuguese; settings.locale copy as well.
+    expect(locale.bind('conversation')('shortcut.newline')).toBe('Nova linha')
+    expect(locale.bind(SETTINGS_NS)('language.title')).toBe('Idioma')
+    // Lookup mechanics survive the pack: a key in neither dictionary echoes.
+    // (A wide-string ns hits the untyped bind overload — the typed one rejects
+    // unknown keys at compile time.)
+    const ns: string = 'conversation'
+    expect(locale.bind(ns)('no.such.key')).toBe('no.such.key')
   })
 })

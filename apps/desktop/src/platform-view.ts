@@ -53,7 +53,7 @@ export class DesktopPlatformView {
    * @param platform - operating system this shell runs on, reported to Platform.
    */
   constructor(private readonly preload: string, private readonly getLocale: () => PlatformLocale,
-    private readonly platform: 'darwin' | 'win32') {}
+    private readonly platform: 'darwin' | 'win32' | 'linux') {}
 
   /** @param next - private Host credentials; identity enrichment preserves an already open temporary document. */
   setSession(next: PlatformSession | null): void {
@@ -111,8 +111,9 @@ export class DesktopPlatformView {
     browserSession.setPermissionRequestHandler((_contents, _permission, callback) => { callback(false) })
     browserSession.setPermissionCheckHandler(() => false)
     const deploymentHeaders = account.requestHeaders ?? {}
-    const injectedNames = new Set([...Object.keys(deploymentHeaders),
-      ...Object.keys(platformClientHeaders(this.platform, desktopClientMetadata(this.getLocale())))]
+    const clientHeaders = platformClientHeaders(this.platform === 'linux' ? null : this.platform,
+      desktopClientMetadata(this.getLocale()))
+    const injectedNames = new Set([...Object.keys(deploymentHeaders), ...Object.keys(clientHeaders)]
       .map(name => name.toLowerCase()))
     const injectedRequests = new Set<number>()
     browserSession.webRequest.onCompleted((details) => { injectedRequests.delete(details.id) })
@@ -124,7 +125,7 @@ export class DesktopPlatformView {
         // The document identifies the UI that is asking, so language and UTC offset are sampled now.
         const injected = {
           ...deploymentHeaders,
-          ...platformClientHeaders(this.platform, desktopClientMetadata(this.getLocale())),
+          ...clientHeaders,
         }
         const cookie = headers.cookie ?? ''
         Object.assign(headers, injected)

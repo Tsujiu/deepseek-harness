@@ -1,0 +1,7 @@
+export const sidebar = {
+  'session.new': 'Nova sessão',
+  'session.new.label': 'Nova sessão',
+  'toggle.open': 'Abrir barra lateral',
+  'toggle.collapse': 'Recolher barra lateral',
+  'panels.label': 'Painéis globais',
+} satisfies Record<string, string>

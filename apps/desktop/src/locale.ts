@@ -1,4 +1,4 @@
-/** Typed English and Chinese copy owned by the Electron shell. */
+/** Typed English, Chinese, and Portuguese copy owned by the Electron shell. */
 
 export const en = {
   cliCommandMenu: 'Manage dsh Command…',
@@ -167,6 +167,105 @@ export const en = {
   mandatoryAddress: 'Download link',
   mandatoryNotification: 'Return to the application to confirm installation and restart.',
 } as const
+
+/** Portuguese shell copy. Untranslated long-tail notices intentionally retain the English wording until
+ * their reviewed translation lands. */
+export const ptBR = {
+  ...en,
+  cliCommandMenu: 'Gerenciar comando dsh…',
+  cliCommandTitle: 'Gerenciar comando dsh',
+  application: 'Aplicativo',
+  fileMenu: 'Arquivo',
+  closePage: 'Fechar página ou janela',
+  aboutMenu: 'Sobre o DeepSeek Harness',
+  aboutProduct: 'DeepSeek Harness',
+  aboutVersion: 'Versão V{version}',
+  hideApplication: 'Ocultar DeepSeek Harness',
+  hideOtherApplications: 'Ocultar outros',
+  showAllApplications: 'Mostrar todos',
+  quitApplication: 'Sair do DeepSeek Harness',
+  openApplication: 'Abrir DeepSeek Harness',
+  quit: 'Sair',
+  cancel: 'Cancelar',
+  quitTitle: 'Sair do DeepSeek Harness?',
+  quitActiveTasks: 'As tarefas em execução serão interrompidas.',
+  quitScheduledTasks: 'As tarefas agendadas não serão executadas enquanto o aplicativo estiver fechado.',
+  edit: 'Editar',
+  delete: 'Excluir',
+  undo: 'Desfazer',
+  redo: 'Refazer',
+  cut: 'Recortar',
+  copy: 'Copiar',
+  paste: 'Colar',
+  selectAll: 'Selecionar tudo',
+  startupFailed: 'O DeepSeek Harness está indisponível',
+  fatalSummary: 'O aplicativo não pôde iniciar ou parou inesperadamente.',
+  exitApplication: 'Sair',
+  restartApplication: 'Reiniciar',
+  welcomeTitle: 'DeepSeek Harness',
+  welcomeBrand: 'DeepSeek Harness',
+  welcomeTaglineBefore: 'Bem-vindo ao ',
+  welcomeDescription: 'Construa possibilidades. Explore a inteligência.',
+  welcomeAuthStarting: 'Abrindo login…',
+  welcomeAuthWaiting: 'O navegador não abriu automaticamente?',
+  welcomeAuthWaitingDescription: 'Copie o link de login e abra-o no navegador.',
+  welcomeAuthExchanging: 'Concluindo o login…',
+  welcomeAuthExpired: 'O login expirou',
+  welcomeAuthExpiredDescription: 'Faça login novamente para continuar',
+  welcomeAuthFailed: 'Não foi possível concluir o login. Tente novamente.',
+  welcomeAuthCopyLink: 'Copiar link de login',
+  welcomeAuthCopied: 'Copiado',
+  welcomeAuthCopyFailed: 'Não foi possível copiar. Tente novamente.',
+  welcomeAuthCancel: 'Cancelar',
+  welcomeAuthRetry: 'Fazer login novamente',
+  welcomeSignIn: 'Entrar',
+  welcomeApiKey: 'Adicionar chave de API',
+  welcomeKeyTitle: 'Adicione uma chave de API para começar',
+  welcomeKeyDescription: 'Configure os modelos oficiais da DeepSeek para começar a usar o Harness',
+  welcomeKeyPlaceholder: 'Digite a chave de API',
+  welcomeKeySave: 'Salvar e continuar',
+  welcomeKeyLater: 'Configurar depois',
+  welcomeKeyBack: 'Voltar ao login',
+  welcomeKeyBlank: 'Digite uma chave de API.',
+  welcomeKeyInvalid: 'Digite apenas a chave de API, sem aspas, espaços ou atribuição de variável de ambiente.',
+  welcomeKeyFailed: 'Não foi possível salvar a chave de API. Tente novamente.',
+  welcomeContinueFailed: 'Não foi possível abrir o workspace. Tente novamente.',
+  checkUpdatesMenu: 'Verificar atualizações…',
+  reloadPageMenu: 'Recarregar página',
+  restartAppHostMenu: 'Reiniciar aplicativo e Host',
+  updateCheckTitle: 'Verificar atualizações',
+  updateCurrent: 'Você já está usando a versão mais recente!',
+  updateChecking: 'Verificando atualizações…',
+  updateDownload: 'Baixar atualização',
+  updateClose: 'Fechar',
+  updateAcknowledge: 'OK',
+  updateLater: 'Atualizar depois',
+  later: 'Depois',
+  updateDownloading: 'Baixando {percent}%…',
+  updateVerifying: 'Verificando arquivos da atualização…',
+  updateInstalling: 'Preparando reinicialização…',
+  updateRetry: 'Tentar atualização novamente',
+  updateActiveTasks: 'Ainda há tarefas em andamento',
+  updateStopTasks: 'Parar tarefas e atualizar',
+  installAndRestart: 'Instalar e reiniciar',
+  updateTitle: 'Atualização do DeepSeek Harness',
+  updateAvailable: 'Nova versão disponível: {version}',
+  updateDetail: 'Quando o download terminar, você poderá instalar a atualização e reiniciar o aplicativo.',
+  unknownError: 'Erro desconhecido',
+  mandatoryTitle: 'Atualize para continuar',
+  mandatoryRefresh: 'Verificar novamente',
+  mandatoryPage: 'Baixar no site oficial',
+  mandatoryCopy: 'Copiar link de download',
+  mandatoryReady: 'Atualização pronta',
+  mandatoryVersion: 'Nova versão: {version}',
+  mandatoryContinue: 'Continuar atualização',
+  mandatoryInspecting: 'Verificando tarefas…',
+  mandatoryStopping: 'Parando tarefas…',
+  mandatoryRestarting: 'O aplicativo será reiniciado em breve. Aguarde.',
+  mandatoryCopied: 'Link copiado',
+  mandatoryCopyFailed: 'Não foi possível copiar o link. Selecione e copie-o abaixo.',
+  mandatoryAddress: 'Link de download',
+} as const satisfies DesktopMessages
 
 /** Every Desktop locale supplies the complete English key set. */
 export type DesktopMessages = { readonly [Key in keyof typeof en]: string }
@@ -341,15 +440,16 @@ export const zh = {
 
 /** Locale payload exposed to the Desktop-owned renderer. */
 export interface DesktopLocale {
-  readonly id: 'en' | 'zh-CN'
+  readonly id: 'en' | 'zh-CN' | 'pt-BR'
   readonly messages: DesktopMessages
 }
 
 /** Resolve Electron's locale to one shipped Desktop dictionary. */
 export function resolveDesktopLocale(locale: string): DesktopLocale {
-  return locale.toLowerCase().startsWith('zh')
-    ? { id: 'zh-CN', messages: zh }
-    : { id: 'en', messages: en }
+  const normalized = locale.toLowerCase()
+  if (normalized.startsWith('zh')) return { id: 'zh-CN', messages: zh }
+  if (normalized === 'pt' || normalized.startsWith('pt-')) return { id: 'pt-BR', messages: ptBR }
+  return { id: 'en', messages: en }
 }
 
 /**
@@ -360,10 +460,10 @@ export function resolveDesktopLocale(locale: string): DesktopLocale {
  */
 export function resolveDesktopStartupLocale(preference: string | null, languages: readonly string[]): DesktopLocale {
   const selected = preference?.toLowerCase()
-  if (selected === 'zh' || selected === 'en') return resolveDesktopLocale(selected)
+  if (selected === 'zh' || selected === 'en' || selected === 'pt' || selected === 'pt-br') return resolveDesktopLocale(selected)
   for (const language of languages) {
     const primary = language.toLowerCase().split('-')[0]
-    if (primary === 'zh' || primary === 'en') return resolveDesktopLocale(primary)
+    if (primary === 'zh' || primary === 'en' || primary === 'pt') return resolveDesktopLocale(primary)
   }
   return resolveDesktopLocale('en')
 }

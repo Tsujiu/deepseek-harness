@@ -1,0 +1,17 @@
+export const sidebarPdf = {
+  'zoomControls': 'Controles de zoom',
+  'zoomMenu': 'Escolher zoom',
+  'zoomOut': 'Afastar',
+  'zoomIn': 'Aproximar',
+  'zoomFitWidth': 'Ajustar largura',
+  'zoomValue': '{percent}%',
+  'title': 'PDF',
+  'pageImage': 'Página {page} do PDF',
+  'loading': 'Renderizando documento...',
+  'rendering': 'Renderizando página…',
+  'failed': 'Não foi possível exibir o PDF: {message}',
+  'password': 'Este PDF requer uma senha; pré-visualizações protegidas por senha não têm suporte.',
+  'workerFailed': 'O processo de renderização do PDF não pôde continuar. Tente novamente.',
+  'unsupported': 'A pré-visualização de PDF requer o conteúdo completo do arquivo.',
+  'retry': 'Tentar novamente',
+} satisfies Record<string, string>

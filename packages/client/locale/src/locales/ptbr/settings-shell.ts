@@ -1,0 +1,16 @@
+export const settingsShell = {
+  'title': 'Shell',
+  'description': 'Limite por quanto tempo cada comando pode ser executado e quanto pode produzir de saída.',
+  'timeoutMs': 'Tempo limite do comando (ms)',
+  'timeoutMsHint': 'Por quanto tempo um comando pode ser executado antes de ser encerrado.',
+  'maxOutputBytes': 'Limite de saída por stream (bytes)',
+  'maxOutputBytesHint': 'A saída além disso é transferida para um arquivo temporário em vez de ser perdida.',
+  'overridden': 'Substituído',
+  'reset': 'Redefinir para o padrão',
+  'readOnly': 'Esta implantação armazena as configurações somente para leitura.',
+  'unavailable': 'Este plugin não está carregado, portanto não pode ser configurado no momento.',
+  'save': 'Salvar',
+  'saving': 'Salvando…',
+  'saveFailed': 'A implantação não aceitou esses valores; eles foram mantidos para você corrigir.',
+  'invalidNumber': 'Insira um número ou deixe em branco para usar o padrão.',
+} satisfies Record<string, string>

@@ -21,8 +21,10 @@ import {
   type BuiltInLocaleId, type LocaleId, type LocaleSettings,
 } from '../locale-settings.ts'
 import { en, zh, type CommonKey } from '../locales/index.ts'
+import { ptBR as commonPtBR } from '../locales/pt-BR.ts'
+import { PT_BR_NAMESPACES } from '../locales/ptbr/index.ts'
 import {
-  en as settingsEn, zh as settingsZh, type SettingsLocaleKey,
+  en as settingsEn, ptBR as settingsPtBR, zh as settingsZh, type SettingsLocaleKey,
 } from '../locales/settings.ts'
 import type { LanguageRowInjected } from './LanguageRow.tsx'
 import { LanguageRow } from './LanguageRow.tsx'
@@ -122,6 +124,17 @@ const BUILT_IN_LOCALE_METADATA = {
 const BUILT_IN_LOCALES: readonly LocaleDefinition[] = Object.freeze(
   LOCALE_IDS.map(id => Object.freeze({ id, ...BUILT_IN_LOCALE_METADATA[id] })),
 )
+
+/**
+ * Portuguese (Brazil) shipped by this package through the language-pack path:
+ * it is a selectable catalog entry rather than a built-in id, with English as
+ * the per-key fallback for dictionaries it does not fully cover.
+ */
+const PORTUGUESE_LANGUAGE = Object.freeze({
+  id: 'pt-BR',
+  label: 'Português (Brasil)',
+  fallback: FALLBACK_LOCALE,
+} satisfies LanguageRegistration)
 
 /** Case-insensitive key for BCP 47-style ids. */
 function localeKey(value: string): string {
@@ -576,8 +589,18 @@ export async function apply(ctx: ClientContext): Promise<void> {
   }
   const host = ctx.configForms.get<LocaleSettings>(LOCALE_SETTINGS_NAMESPACE)
   const locale = new LocaleRuntime(ctx, host, bootstrap)
+  // Add Portuguese to the catalog so it is selectable; dictionaries may
+  // register around it in either order.
+  locale.addLanguage(PORTUGUESE_LANGUAGE)
   locale.register(COMMON_NS, { zh, en })
+  locale.register(COMMON_NS, 'pt-BR', commonPtBR)
   locale.register(SETTINGS_NS, { zh: settingsZh, en: settingsEn })
+  locale.register(SETTINGS_NS, 'pt-BR', settingsPtBR)
+  // Feature namespace dictionaries ship as one language pack: pt-BR registered
+  // wherever the GUI declares copy, so the whole app reads Portuguese.
+  for (const [ns, dict] of Object.entries(PT_BR_NAMESPACES)) {
+    locale.register(ns, 'pt-BR', dict)
+  }
   ctx.provide('locale', locale)
   if (bridge !== undefined) {
     ctx.on('locale/change', (snapshot) => { bridge.onChange(snapshot.active) })
